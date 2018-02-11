@@ -21,11 +21,38 @@
 	type="text/css">
 
 <style type="text/css">
-.ztree li a.level0 {width:200px;height: 20px; text-align: center; display:block; background-color: #0B61A4; border:1px silver solid;}
-.ztree li a.level0.cur {background-color: #66A3D2; }
-.ztree li a.level0 span {display: block; color: white; padding-top:3px; font-size:12px; font-weight: bold;word-spacing: 2px;}
-.ztree li a.level0 span.button {	float:right; margin-left: 10px; visibility: visible;display:none;}
-.ztree li span.button.switch.level0 {display:none;}
+.ztree li a.level0 {
+	width: 200px;
+	height: 20px;
+	text-align: center;
+	display: block;
+	background-color: #0B61A4;
+	border: 1px silver solid;
+}
+
+.ztree li a.level0.cur {
+	background-color: #66A3D2;
+}
+
+.ztree li a.level0 span {
+	display: block;
+	color: white;
+	padding-top: 3px;
+	font-size: 12px;
+	font-weight: bold;
+	word-spacing: 2px;
+}
+
+.ztree li a.level0 span.button {
+	float: right;
+	margin-left: 10px;
+	visibility: visible;
+	display: none;
+}
+
+.ztree li span.button.switch.level0 {
+	display: none;
+}
 </style>
 
 <script type="text/javascript"
@@ -43,9 +70,9 @@
 </head>
 <body>
 
-	 <jsp:include page="./common/head.jsp"/> 
-	
-	
+	<jsp:include page="./common/head.jsp" />
+
+
 	<div id="content_wrap" class="content_wrap">
 		<div id="content" class="content">
 			<div class="nav_section">
@@ -218,71 +245,11 @@
 
 
 	</script>
-	<div id="footer_wrap" class="footer_wrap">
-		<div id="footer" class="footer">
-			<a href="http://www.treejs.cn/v3/main.php" style="display: inline;"
-				title="zTree Home"><div class="footer-logo"></div></a>
+	
+	<jsp:include page="./common/foot.jsp" />
+	
 
-			<!-- Site Switcher -->
-			<div id="footer_mii" class="footer_mii">
-				<a href="javascript:void(0)" target="_blank">Copyright @2010
-					zTree 版权所有.</a>
-			</div>
-			<div id="footer_siteMap" class="footer_siteMap open">
-				<div class="footer_siteMap_header" title="站内导航">站内导航</div>
-				<ul id="footer_siteMap_ul" class="up" style="display: none;">
-					<li><a href="http://www.treejs.cn/v3/main.php#_zTreeInfo"
-						class="zTreeInfoBtn">zTree 简介</a></li>
-					<li><a href="http://www.treejs.cn/v3/main.php#_license"
-						class="licenseBtn">zTree 授权协议</a></li>
-					<li><a href="http://www.treejs.cn/v3/donate.php"
-						class="donateBtn">捐助 zTree</a></li>
-					<li><a href="http://www.treejs.cn/v3/demo.php">zTree v3.5
-							Demo 演示</a></li>
-					<li><a href="http://www.treejs.cn/v3/api.php">zTree v3.5
-							API 文档</a></li>
-					<li><a href="http://www.treejs.cn/v3/faq.php">zTree v3.x
-							常见问题</a></li>
-					<li><a href="http://www.treejs.cn/hunter/index.html"
-						target="_blank">zTree v2.6 回忆</a></li>
-					<li><a href="http://www.treejs.cn/v3/main.php#_links"
-						class="linksBtn">友情链接</a></li>
-				</ul>
-			</div>
-			<div id="footer_contact" class="footer_contact open">
-				<div class="footer_contact_header" title="快速联系">快速联系</div>
-				<ul id="footer_contact_ul" class="up" style="display: none;">
-					<li><a href="https://gitee.com/zTree/zTree_v3" target="_blank">zTree
-							@ Gitee</a></li>
-					<li><a href="https://github.com/zTree/zTree_v3"
-						target="_blank">zTree @ Github</a></li>
-					<li><a href="http://my.oschina.net/dyhunter" target="_blank">zTree
-							@ 开源中国</a></li>
-					<li><a href="http://ztreeapi.iteye.com/" target="_blank">zTree
-							@ ITeye</a></li>
-					<li><a href="http://tieba.baidu.com/f?kw=zTree"
-						target="_blank">zTree 吧</a></li>
-					<li><a href="mailto:hunter.z@263.net">Email</a></li>
-
-				</ul>
-			</div>
-			<div id="footer_download" class="footer_download open">
-				<div class="footer_download_header" title="快速下载">快速下载</div>
-				<ul id="footer_download_ul" class="up" style="display: none;">
-					<li><a href="https://github.com/zTree/zTree_v3"
-						target="_blank">Github 下载</a></li>
-					<li><a href="https://gitee.com/zTree/zTree_v3" target="_blank">码云
-							下载</a></li>
-					<li><a href="https://code.google.com/p/jquerytree/"
-						target="_blank">Google 下载</a></li>
-				</ul>
-			</div>
-			<!-- [END] Site Switcher -->
-
-		</div>
-	</div>
-
-<script type="text/javascript"
-	src="<%=request.getAttribute("basePath")%>/static/js/babygo.js"></script>
+	<script type="text/javascript"
+		src="<%=request.getAttribute("basePath")%>/static/js/babygo.js"></script>
 </body>
 </html>
