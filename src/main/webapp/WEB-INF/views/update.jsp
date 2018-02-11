@@ -59,29 +59,35 @@ var basePath = "<%=request.getAttribute("basePath")%>";
 		open : false
 	} ];
 	
-	
+	var ue_viewer;
 	$(document).ready(function() {
-		
-		$.ajax({
-			url : '/index/getTree.json',
-			// data : params,
-			type : "POST",
-			cache : false,
-			success : function(result) {
-				if (result.exception) {
-					alert("报错啦！" + result.exception);
-				} else {
-					menu_nodes = result.data;
-					demoContent._init();
-					rMenu = $("#rMenu");
-				}
-			},
-			error : function(e) {
-				alert("未知错误:http状态 >" + e.status);
-			}
-		});  
 
-		UE.getEditor('editor');
+		ue_viewer = UE.getEditor('editor');
+		
+		ue_viewer.addListener("ready", function () {  
+            // editor准备好之后才可以使用  
+			$.ajax({
+				url : '/index/getTree.json',
+				// data : params,
+				type : "POST",
+				cache : false,
+				success : function(result) {
+					if (result.exception) {
+						alert("报错啦！" + result.exception);
+					} else {
+						menu_nodes = result.data;
+						demoContent._init();
+						rMenu = $("#rMenu");
+					}
+				},
+				error : function(e) {
+					alert("未知错误:http状态 >" + e.status);
+				}
+			});  
+
+
+    	});  
+		
 	});
 
 	
@@ -183,7 +189,7 @@ var basePath = "<%=request.getAttribute("basePath")%>";
 						} else {
 							if(result.data != ""){
 
-								UE.getEditor('editor').setContent(result.data, false);
+								ue_viewer.setContent(result.data, false);
 							}
 						}
 					},
@@ -232,8 +238,8 @@ var basePath = "<%=request.getAttribute("basePath")%>";
 					demoContent.print(node.id);
 				}
 				
-				var rtn = !node.blank && node.level != 0 && !demoContent.zTree.isSelectedNode(node);
-				//var rtn = !node.blank && !demoContent.zTree.isSelectedNode(node);
+				//var rtn = !node.blank && node.level != 0 && !demoContent.zTree.isSelectedNode(node);
+				var rtn = !node.blank && !demoContent.zTree.isSelectedNode(node);
 				return rtn;
 			},
 			onClick : function(event, treeId, treeNode) {
