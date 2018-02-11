@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<display-name>cuckoo-job-admin</display-name>
+	<context-param>
+		<param-name>webAppRootKey</param-name>
+		<param-value>spring-mvc-jsp</param-value>
+	</context-param>
+
+	<filter>
+		<filter-name>characterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>characterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- ContextLoaderListener的配置文件路径定义 <context-param> <param-name>contextConfigLocation</param-name> 
+		<param-value>classpath*:/spring/spring-service.xml</param-value> </context-param> -->
+
+
+	<!-- 初始化WebApplicationContext上下文（Web应用容器），具体执行的操作可以参考ContextLoader.initWebApplicationContext() 
+		其将配置spring文件配置，初始化ApplicationContext并放在servletContext中。 在后续使用中，通过servletContext操作来操作spring上下文，获取bean 
+		<listener> <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class> 
+		</listener> -->
+
+	<servlet>
+		<servlet-name>springmvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- MVC模式中的controller层，负责web接口的分发 主要作用： 1、文件上传解析，如果请求类型是multipart将通过MultipartResolver进行文件上传解析； 
+			2、通过HandlerMapping，将请求映射到处理器（返回一个HandlerExecutionChain，它包括一个处理器、多个HandlerInterceptor拦截器）； 
+			3、通过HandlerAdapter支持多种类型的处理器(HandlerExecutionChain中的处理器)； 4、通过ViewResolver解析逻辑视图名到具体视图实现； 
+			5、本地化解析； 6、渲染具体的视图等； 7、如果执行过程中遇到异常将交给HandlerExceptionResolver来解析。 -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath*:/spring/spring-mvc-context.xml</param-value>
+			<!-- 定义controller相关配置 -->
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springmvc</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+
+</web-app>
