@@ -45,11 +45,17 @@ public class JsonResult<T> {
 
 	public JsonResult(Status status, String msg) {
 		this.code = status.code;
+		if(JsonResult.Status.ERROR.equals(status)){
+			this.exception = msg;
+		}
 		this.msg = msg;
 	}
 
 	public JsonResult(Status status, String msg, T data) {
 		this.code = status.code;
+		if(JsonResult.Status.ERROR.equals(status)){
+			this.exception = msg;
+		}
 		this.msg = msg;
 		this.data = data;
 	}

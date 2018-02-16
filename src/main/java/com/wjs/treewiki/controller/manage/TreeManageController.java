@@ -16,7 +16,7 @@ import com.wjs.treewiki.model.node.TreeContent;
 import com.wjs.treewiki.model.node.TreeItem;
 import com.wjs.treewiki.service.node.TreeContentService;
 import com.wjs.treewiki.service.node.TreeItemService;
-import com.wjs.treewiki.vo.TreeItemVo;
+import com.wjs.treewiki.vo.item.TreeItemVo;
 
 @Controller
 @RequestMapping(value = "/manage")

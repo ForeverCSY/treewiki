@@ -3,6 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
+<title>wiki编辑</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <script type="text/javascript">
@@ -22,14 +24,19 @@ var basePath = "<%=request.getAttribute("basePath")%>";
 	href="<%=request.getAttribute("basePath")%>/static/css/zTreeStyle/zTreeStyle.css"
 	type="text/css">
 
+<jsp:include page="./common/static_resource.jsp" />
 
 <script type="text/javascript"
 	src="<%=request.getAttribute("basePath")%>/static/js/babyFirst.js"></script>
 <script type="text/javascript">
 	var lang = "cn";
 </script>
+
 <script type="text/javascript"
-	src="<%=request.getAttribute("basePath")%>/static/js/jquery-1.6.2.min.js"></script>
+		src="<%=request.getAttribute("basePath")%>/static/adminlte/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript"
+		src="<%=request.getAttribute("basePath")%>/static/js/common.alert.1.js"></script>
+
 
 <script type="text/javascript"
 	src="<%=request.getAttribute("basePath")%>/static/js/jquery.ztree.core.js"></script>
@@ -65,15 +72,17 @@ var basePath = "<%=request.getAttribute("basePath")%>";
 		ue_viewer = UE.getEditor('editor');
 		
 		ue_viewer.addListener("ready", function () {  
+			
+			
             // editor准备好之后才可以使用  
 			$.ajax({
-				url : '/index/getTree.json',
+				url : '/item/getTreeByLoginUser.json',
 				// data : params,
 				type : "POST",
 				cache : false,
 				success : function(result) {
 					if (result.exception) {
-						alert("报错啦！" + result.exception);
+						ComAlert.show(2, "报错啦！" + result.exception);
 					} else {
 						menu_nodes = result.data;
 						demoContent._init();
@@ -81,10 +90,13 @@ var basePath = "<%=request.getAttribute("basePath")%>";
 					}
 				},
 				error : function(e) {
-					alert("未知错误:http状态 >" + e.status);
-				}
-			});  
 
+					ComAlert.show(2, "未知错误:http状态 >" + e.status);
+				}
+			}); 
+            
+			// 默认不可编辑，需要加锁后才可以编辑。
+			pageDisabled();
 
     	});  
 		
@@ -185,16 +197,32 @@ var basePath = "<%=request.getAttribute("basePath")%>";
 					cache : false,
 					success : function(result) {
 						if (result.exception) {
-							alert("报错啦！" + result.exception);
+							ComAlert.show(2, "报错啦！" + result.exception);
+							
 						} else {
 							if(result.data != ""){
+								if("1" == result.data.lockby){
 
-								ue_viewer.setContent(result.data, false);
+									
+									if(logonInfo.id == result.data.lockbyId){
+										// 区分自己的锁 
+										lock.addPageLock(0,"");
+									}else{
+
+										// 设置加锁信息
+										lock.addPageLock(1,"内容已被["+result.data.lockbyName+"]加锁");
+									}
+								}else{
+									lock.releasePageLock("修改前请加锁");
+									
+								}
+								ue_viewer.setContent(result.data.content, false);
 							}
 						}
 					},
 					error : function(e) {
-						alert("未知错误:http状态 >" + e.status);
+
+						ComAlert.show(2, "未知错误:http状态 >" + e.status);
 					}
 				});
 			},
@@ -290,12 +318,13 @@ var basePath = "<%=request.getAttribute("basePath")%>";
 							cache : false,
 							success : function(result) {
 								if (result.exception) {
-									alert("报错啦！" + result.exception);
+									ComAlert.show(2, "报错啦！" + result.exception);
 									return false;
 								}
 							},
 							error : function(e) {
-								alert("未知错误:http状态 >" + e.status);
+
+								ComAlert.show(2, "未知错误:http状态 >" + e.status);
 							}
 						});
 					}
@@ -331,7 +360,7 @@ var basePath = "<%=request.getAttribute("basePath")%>";
 			cache : false,
 			success : function(result) {
 				if (result.exception) {
-					alert("报错啦！" + result.exception);
+					ComAlert.show(2, "报错啦！" + result.exception);
 				} else {
 					var newNode = {
 						id : result.data,
@@ -348,7 +377,8 @@ var basePath = "<%=request.getAttribute("basePath")%>";
 				}
 			},
 			error : function(e) {
-				alert("未知错误:http状态 >" + e.status);
+
+				ComAlert.show(2, "未知错误:http状态 >" + e.status);
 			}
 		});
 
@@ -372,13 +402,14 @@ var basePath = "<%=request.getAttribute("basePath")%>";
 						cache : false,
 						success : function(result) {
 							if (result.exception) {
-								alert("报错啦！" + result.exception);
+								ComAlert.show(2, "报错啦！" + result.exception);
 							} else {
 								demoContent.zTree.removeNode(nodes[0]);
 							}
 						},
 						error : function(e) {
-							alert("未知错误:http状态 >" + e.status);
+
+							ComAlert.show(2, "未知错误:http状态 >" + e.status);
 						}
 					});
 				}
@@ -395,13 +426,14 @@ var basePath = "<%=request.getAttribute("basePath")%>";
 						cache : false,
 						success : function(result) {
 							if (result.exception) {
-								alert("报错啦！" + result.exception);
+								ComAlert.show(2, "报错啦！" + result.exception);
 							} else {
 								demoContent.zTree.removeNode(nodes[0]);
 							}
 						},
 						error : function(e) {
-							alert("未知错误:http状态 >" + e.status);
+
+							ComAlert.show(2, "未知错误:http状态 >" + e.status);
 						}
 					});
 				}
@@ -414,20 +446,21 @@ var basePath = "<%=request.getAttribute("basePath")%>";
 	function resetTree() {
 		hideRMenu();
 		$.ajax({
-			url : '/index/getTree.json',
+			url : '/item/getTreeByLoginUser.json',
 			// data : params,
 			type : "POST",
 			cache : false,
 			success : function(result) {
 				if (result.exception) {
-					alert("报错啦！" + result.exception);
+					ComAlert.show(2, "报错啦！" + result.exception);
 				} else {
 					menu_nodes = result.data;
 					demoContent._init(); 
 				}
 			},
 			error : function(e) {
-				alert("未知错误:http状态 >" + e.status);
+
+				ComAlert.show(2, "未知错误:http状态 >" + e.status);
 			}
 		});
 	}
@@ -489,17 +522,118 @@ var basePath = "<%=request.getAttribute("basePath")%>";
 			cache : false,
 			success : function(result) {
 				if (result.exception) {
-					alert("报错啦！" + result.exception);
+					ComAlert.show(2, "报错啦！" + result.exception);
 				} else {
-					alert("保存成功");
+					ComAlert.show(1, "保存成功");
 				}
 			},
 			error : function(e) {
-				alert("未知错误:http状态 >" + e.status);
+
+				ComAlert.show(2, "未知错误:http状态 >" + e.status);
 			}
 		});
 
-		// TODO 保存完毕，自动释放锁，页面只读
+		// 保存完毕，自动释放锁，页面只读:经考虑，用户有不断保存的习惯，不合适怎么做。
+		// lock.releaseLock();
+	}
+	
+	function toLock(){
+		
+		// 查看当前是否加锁，0否1是
+		if("1" == $("#lockby").val()){
+			// 已经加锁，释放锁
+			lock.releaseLock("");
+		}else{
+			lock.addLock(0,"");
+		}
+	}
+	
+	var lock = {
+			
+			releasePageLock : function (content){
+				// 仅作页面调整
+				$("#lockby").val("0");
+				$("#lockBtn").html("加锁");
+				$("#lockLabel").html(content);
+				pageDisabled();
+			},
+
+			addPageLock : function(lockType,content){
+				// lockType,0：自己，1：其他
+				
+				// 仅作页面调整
+				$("#lockby").val("1");
+				$("#lockBtn").html("释放锁");
+				$("#lockLabel").html(content);
+				// lockType=0,自己加锁。lockType=1.别人加的锁
+				if(lockType == 0){
+					pageEnable();
+				}else{
+					pageDisabled();
+				}
+			},
+			releaseLock : function (content){
+				
+				// ajax 释放锁
+				$.ajax({
+					url : '/content/releaseLock.json',
+					data : {
+						id : demoContent.zTree.getSelectedNodes()[0].id,
+					},
+					type : "POST",
+					cache : false,
+					success : function(result) {
+						if (result.exception) {
+							ComAlert.show(2, "报错啦！" + result.exception);
+						} else {
+							ComAlert.show(1, "锁释放成功");
+							lock.releasePageLock("");
+						}
+					},
+					error : function(e) {
+		
+						ComAlert.show(2, "未知错误:http状态 >" + e.status);
+					}
+				});
+
+				
+			},
+
+			addLock : function(lockType,content){
+				// lockType,0：自己，1：其他
+				// ajax 加锁
+				$.ajax({
+					url : '/content/addLock.json',
+					data : {
+						id : demoContent.zTree.getSelectedNodes()[0].id,
+					},
+					type : "POST",
+					cache : false,
+					success : function(result) {
+						if (result.exception) {
+							ComAlert.show(2, "报错啦！" + result.exception);
+						} else {
+							ComAlert.show(1, "加锁成功");
+							lock.addPageLock(0,"");
+						}
+					},
+					error : function(e) {
+		
+						ComAlert.show(2, "未知错误:http状态 >" + e.status);
+					}
+				});
+			}
+		
+	};
+	
+	
+	function pageDisabled(){
+		$("#treeName").attr("disabled",true);
+		ue_viewer.setDisabled();
+	}
+	function pageEnable(){
+		$('#treeName').attr("disabled",false);
+		ue_viewer.setEnabled();
 	}
 
 </script>
@@ -545,11 +679,12 @@ div#rMenu ul li {
 						<div class="zTreeDemoBackground left">
 
 							<ul class="info">
-
-								<li><a id="menuBtn" href="#"
-									onclick="lock(); return false;">锁定</a> <a id="menuBtn" href="#"
+								<input id="lockby" type="hidden"/>
+								<li><a id="lockBtn" href="#"
+									onclick="toLock(); return false;">锁定</a> 
+									<a id="saveBtn" href="#"
 									onclick="save(); return false;">保存</a></li>
-								<li><label>todo-->red：已经被xxx加锁</label></li>
+								<li><label id="lockLabel" style="color:red;">red：已经被xxx加锁</label></li>
 							</ul>
 
 							<ul class="info">

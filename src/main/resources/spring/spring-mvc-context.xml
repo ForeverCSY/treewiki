@@ -41,11 +41,6 @@
 				<value>classpath:server.properties</value>
 			</list>
 		</property>
-		<property name="jndiLocations">
-			<list>
-				<value>lbc_tuan</value>
-			</list>
-		</property>
 
 	</bean>
 	
@@ -91,15 +86,36 @@
 
 
 	<!-- 拦截器 -->
-
+	<bean id="logonInterceptor" class="com.wjs.treewiki.web.interceptors.LogonInterceptor">
+		<!-- 不登录也能访问的页面 -->
+		<property name="excludeUrls">
+			<list>
+				<value>/favicon.ico</value>
+				<value>/</value>
+				<value>/logon*</value>
+				<value>/home.html</value>
+			</list>
+		</property>
+	</bean>
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<!-- 静态 资源 -->
 			<mvc:mapping path="/**" />
+			<!-- 静态 资源 -->
 			<mvc:exclude-mapping path="/static/**" />
 			<bean class="com.wjs.treewiki.web.interceptors.CommonInteceptor"></bean>
 		</mvc:interceptor>
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<!-- 静态 资源 -->
+			<mvc:exclude-mapping path="/static/**" />
+			<ref bean="logonInterceptor" />
+		</mvc:interceptor>
 	</mvc:interceptors>
+	
+	
+	<bean id="exceptionResolver" class="com.wjs.treewiki.web.resolver.ExceptionResolver" />
+	
 
 	
 	<import resource="classpath*:spring/spring-daoContext.xml" />

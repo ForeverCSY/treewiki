@@ -8,4 +8,8 @@ public interface TreeContentService {
 
 	TreeContent getByItemId(Long itemId);
 
+	void addLock(Long id);
+
+	void releaseLock(Long id);
+
 }

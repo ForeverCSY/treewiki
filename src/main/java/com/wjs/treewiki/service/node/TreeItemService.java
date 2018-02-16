@@ -3,7 +3,7 @@ package com.wjs.treewiki.service.node;
 import java.util.List;
 
 import com.wjs.treewiki.model.node.TreeItem;
-import com.wjs.treewiki.vo.TreeItemVo;
+import com.wjs.treewiki.vo.item.TreeItemVo;
 
 public interface TreeItemService {
 
@@ -11,7 +11,10 @@ public interface TreeItemService {
 	 * 查询所有节点
 	 * @return
 	 */
-	List<TreeItemVo> listTreeItems();
+	List<TreeItemVo> listAllTreeItems();
+	
+	// 根据用户ID查询有权限的节点
+	List<TreeItemVo> listTreeItemsByUserId(Long userId);
 
 	/**
 	 * 新增节点，并返回主键ID值
@@ -39,5 +42,13 @@ public interface TreeItemService {
 	 * @param moveType
 	 */
 	void move(Long curTreeId, Long newPid, String moveType);
+
+	/**
+	 * 跟新某个用户下的权限
+	 * @param userId
+	 * @param ndIds
+	 */
+	void updateUserAuths(Long userId, List<Long> ndIds);
+
 
 }

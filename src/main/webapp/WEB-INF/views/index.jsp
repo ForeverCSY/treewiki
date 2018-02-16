@@ -3,6 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
+<title>wiki仔细看</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="description" content="treewiki_content">
@@ -55,14 +57,18 @@
 }
 </style>
 
+<jsp:include page="./common/static_resource.jsp" />
+
 <script type="text/javascript"
 	src="<%=request.getAttribute("basePath")%>/static/js/babyFirst.js"></script>
 <script type="text/javascript">
 	var lang = "cn";
 </script>
-<script type="text/javascript"
-	src="<%=request.getAttribute("basePath")%>/static/js/jquery-1.6.2.min.js"></script>
 
+	<script type="text/javascript"
+		src="<%=request.getAttribute("basePath")%>/static/adminlte/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript"
+		src="<%=request.getAttribute("basePath")%>/static/js/common.alert.1.js"></script>
 
 <script type="text/javascript"
 	src="<%=request.getAttribute("basePath")%>/static/js/jquery.ztree.core.js"></script>
@@ -99,20 +105,20 @@
 	<script type="text/javascript">
 		var menu_nodes = [{id:1, pId:0, name:"加载中……", open:false}];
 		$.ajax({
-			url : '/index/getTree.json',
+			url : '/item/getTreeByLoginUser.json',
 			// data : params,
 			type : "POST",
 			cache : false,
 			success : function(result) {
 				if (result.exception) {
-					alert("报错啦！" + result.exception);
+					ComAlert.show(2, "报错啦！" + result.exception);
 				} else {
 					menu_nodes = result.data;
 					demoContent._init();
 				}
 			},
 			error : function(e) {
-				alert("未知错误:http状态 >" + e.status);
+				ComAlert.show(2, "未知错误:http状态 >" + e.status);
 			}
 		});
 		
@@ -180,16 +186,19 @@
 						cache : false,
 						success : function(result) {
 							if (result.exception) {
-								alert("报错啦！" + result.exception);
+								
+
+								ComAlert.show(2, alert("报错啦！" + result.exception));
 							} else {
 								if(result.data != ""){
 
-									demoContent.demoIframe.html(result.data);	
+									demoContent.demoIframe.html(result.data.content);	
 								}
 							}
 						},
 						error : function(e) {
-							alert("未知错误:http状态 >" + e.status);
+
+							ComAlert.show(2, "未知错误:http状态 >" + e.status);
 						}
 					});
 				},

@@ -13,4 +13,10 @@ public class Dictionary {
 		public static final String INNER = "inner";
 		public static final String NEXT = "next";
 	}
+	
+	public class UserType{
+		public static final String ADMIN = "admin";
+		public static final String NORMAL = "normal";
+		public static final String GUEST = "guest";
+	}
 }

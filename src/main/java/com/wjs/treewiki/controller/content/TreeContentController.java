@@ -16,7 +16,7 @@ import com.wjs.treewiki.model.node.TreeContent;
 import com.wjs.treewiki.model.node.TreeItem;
 import com.wjs.treewiki.service.node.TreeContentService;
 import com.wjs.treewiki.service.node.TreeItemService;
-import com.wjs.treewiki.vo.TreeItemVo;
+import com.wjs.treewiki.vo.item.TreeItemVo;
 
 @Controller
 @RequestMapping(value = "/content")
@@ -37,7 +37,12 @@ public class TreeContentController extends BaseController{
 			return error("itemId 为空");
 		}
 		TreeContent treeContent = treeContentService.getByItemId(itemId);
-		return success(treeContent == null ? "" : treeContent.getContent());
+		if(treeContent == null){
+			treeContent = new TreeContent();
+			treeContent.setContent("");
+			treeContent.setLockby(Dictionary.CommonYesNo.NO);
+		}
+		return success(treeContent);
 	}
 	
 
@@ -59,12 +64,39 @@ public class TreeContentController extends BaseController{
 		treeContent.setItemId(id);
 		treeContent.setContent(content);
 		treeContent.setCreateDatetime(System.currentTimeMillis());
-		treeContent.setLockby(Dictionary.CommonYesNo.NO);
-		treeContent.setLockbyId(0L);
-		treeContent.setLockbyName("");
+		
 		treeContentService.addOrUpdateByItemId(treeContent);
 		
 		return success();
 	}
+	
+
+	@RequestMapping("/releaseLock.json")
+	@ResponseBody
+	@Transactional
+	public Object releaseLock(HttpServletRequest request, Long id){
+		
+		if(null == id){
+			
+			throw new RuntimeException("节点ID不能为空");
+		}
+		treeContentService.releaseLock(id);
+		return success();
+	}
+		
+	@RequestMapping("/addLock.json")
+	@ResponseBody
+	@Transactional
+	public Object addLock(HttpServletRequest request, Long id){
+		
+		if(null == id){
+			
+			throw new RuntimeException("节点ID不能为空");
+		}
+		treeContentService.addLock(id);
+		return success();
+	}
+		
+	
 	
 }

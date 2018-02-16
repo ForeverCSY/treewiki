@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wjs.common.web.BaseController;
+import com.wjs.treewiki.constant.WebPages;
 import com.wjs.treewiki.service.node.TreeItemService;
-import com.wjs.treewiki.vo.TreeItemVo;
+import com.wjs.treewiki.vo.item.TreeItemVo;
 
 @Controller
 public class IndexController extends BaseController {
@@ -25,23 +26,8 @@ public class IndexController extends BaseController {
 
 		// request.setAttribute("users", userService.listUser());
 
-		return "index";
+		return "/home";
 	}
 
-	@RequestMapping("/index/getTree.json")
-	@ResponseBody
-	public Object getTree(HttpServletRequest request) {
-
-		List<TreeItemVo> list = treeItemService.listTreeItems();
-
-		if (CollectionUtils.isEmpty(list)) {
-			TreeItemVo vo = new TreeItemVo();
-			vo.setId(0L);
-			vo.setpId(0L);
-			vo.setName("无菜单");
-			list.add(vo);
-		}
-
-		return success(list);
-	}
+	
 }

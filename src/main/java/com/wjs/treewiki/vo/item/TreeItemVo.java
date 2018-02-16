@@ -1,4 +1,4 @@
-package com.wjs.treewiki.vo;
+package com.wjs.treewiki.vo.item;
 
 public class TreeItemVo {
 	
@@ -21,6 +21,7 @@ public class TreeItemVo {
 	
 	/*以下开始权限相关*/
 	
+	private Boolean checked;
 	// 右键是否禁止
 	private Boolean noR;
 	
@@ -61,6 +62,15 @@ public class TreeItemVo {
 	}
 	public void setOpen(Boolean open) {
 		this.open = open;
+	}
+	
+
+	
+	public Boolean getChecked() {
+		return checked;
+	}
+	public void setChecked(Boolean checked) {
+		this.checked = checked;
 	}
 	public Boolean getNoR() {
 		return noR;
