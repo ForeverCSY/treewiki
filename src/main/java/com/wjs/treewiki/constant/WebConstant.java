@@ -12,4 +12,9 @@ public class WebConstant {
 	 */
 	public static final String WEB_ENCODING = "UTF-8";
 
+	/**
+	 * 表示所有
+	 */
+	public static final String ALL = "ALL";
+
 }

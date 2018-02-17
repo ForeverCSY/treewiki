@@ -199,6 +199,12 @@ public class TreeItemServiceImpl implements TreeItemService {
 		UserItemCriteria crt = new UserItemCriteria();
 		crt.createCriteria().andUserIdEqualTo(userId);
 		userItemMapper.deleteByExample(crt);
+		addUserAuths(userId, ndIds);
+	}
+
+	@Override
+	public void addUserAuths(Long userId, List<Long> ndIds) {
+
 		if(CollectionUtils.isNotEmpty(ndIds)){
 			for (Long itemId : ndIds) {
 				UserItem userItem = new UserItem();

@@ -37,6 +37,9 @@ public class UserController extends BaseController{
 		
 		
 		List<UserItemVo> userVos = new ArrayList<>();
+		User u = new User();
+		
+		
 		if(CollectionUtils.isNotEmpty(users)){
 			for (User user : users) {
 				UserItemVo vo = new UserItemVo();

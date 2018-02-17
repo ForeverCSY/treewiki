@@ -98,6 +98,7 @@ public class UserServiceImpl implements UserService {
 		
 		UserCriteria crt = new UserCriteria();
 		crt.createCriteria().andUserTypeEqualTo(userType);
+		crt.setOrderByClause(" real_name asc ");
 		return userMapper.selectByExample(crt);
 	}
 

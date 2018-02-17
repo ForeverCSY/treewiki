@@ -36,4 +36,5 @@ public interface UserService {
 	 * @return
 	 */
 	List<User> listUsersByType(String userType);
+
 }

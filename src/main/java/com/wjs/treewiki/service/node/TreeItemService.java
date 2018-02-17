@@ -44,11 +44,19 @@ public interface TreeItemService {
 	void move(Long curTreeId, Long newPid, String moveType);
 
 	/**
-	 * 跟新某个用户下的权限
+	 * 更新某个用户下的权限
 	 * @param userId
 	 * @param ndIds
 	 */
 	void updateUserAuths(Long userId, List<Long> ndIds);
+
+	
+	/**
+	 * 为某个用户增加权限
+	 * @param userId
+	 * @param ndIds
+	 */
+	void addUserAuths(Long userId, List<Long> ndIds);
 
 
 }

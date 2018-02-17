@@ -244,6 +244,10 @@
 					ComAlert.show(2, "报错啦！" + result.exception);
 				} else {
 					user_nodes = result.data;
+					
+					// 增加全部选项：
+					user_nodes.unshift({id:"ALL", pId:0, name:"全部", open:false});
+					
 					userContent._init();
 				}
 			},
@@ -373,7 +377,7 @@
 			$.ajax({
 				url : '/auth/updateUserAuths.json',
 				data : {
-					userId : userId,
+					userIds : userId,
 					nodeIds : nodeIds,
 				},
 				type : "POST",
