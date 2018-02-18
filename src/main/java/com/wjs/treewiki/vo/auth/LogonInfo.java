@@ -10,6 +10,8 @@ public class LogonInfo {
 	private String loginName;
 
 
+    private String userType;
+    
     private String mobile;
 
     private String email;
@@ -40,6 +42,20 @@ public class LogonInfo {
 
 	public void setLoginName(String loginName) {
 		this.loginName = loginName;
+	}
+
+
+
+	
+	
+	public String getUserType() {
+		return userType;
+	}
+
+
+
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 
 

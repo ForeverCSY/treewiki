@@ -235,8 +235,10 @@
 	<script type="text/javascript">
 		var user_nodes = [{id:1, pId:0, name:"加载中……", open:false}];
 		$.ajax({
-			url : '/user/listNormalUser.json',
-			// data : params,
+			url : '/user/getUsersByType.json',
+			data : {
+        		userType : "normal"
+        	},
 			type : "POST",
 			cache : false,
 			success : function(result) {

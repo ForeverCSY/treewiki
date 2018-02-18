@@ -20,7 +20,7 @@
 	type="text/css">
 <script type="text/javascript">
 	var lang = "cn";
-</script> 
+</script>
 <jsp:include page="./common/static_resource.jsp" />
 
 <script type="text/javascript"
@@ -48,36 +48,58 @@
 
 			<div class="siteTag tag_license" alt=""></div>
 
-			<div id="contentBox" class="contentBox round clearfix"
-				style="height: 569px; margin-bottom: 0px;">
-				<div id="zTreeInfo" class="zTreeInfo"
-					style="top: 0px; left: 0px; display: block;">
-					<div class="title">
-						<h1>zTree 简介</h1>
-						<h4>&nbsp;&nbsp;&nbsp;&nbsp;zTree 是一个依靠 jQuery 实现的多功能
-							“树插件”。优异的性能、灵活的配置、多种功能的组合是 zTree 最大优点。</h4>
-						<h4>&nbsp;&nbsp;&nbsp;&nbsp;zTree 是开源免费的软件（MIT 许可证）。如果您对
-							zTree 感兴趣或者愿意资助 zTree 继续发展下去，可以进行捐助。</h4>
+			<div id="contentBox" class="contentBox round clearfix">
+				<div class="row">
+					<div class="col-xs-4">
+						<div class="input-group">
+							<span class="input-group-addon">分组名称</span> <select
+								class="form-control" id="userAuthType">
+								<option value="ALL">全部</option>
+								<option value="admin">管理员</option>
+								<option value="normal">普通用户</option>
+								<option value="guest">游客</option>
+								<!-- 
+                			<#list userTypes as userType>
+                				<option value="${userType.value}" >${userType.description}</option>
+                			</#list>
+                			 -->
+							</select>
+						</div>
 					</div>
-
-					<div id="zTreeInfo-left" class="zTreeInfo-left"></div>
-					<div id="zTreeInfo-right" class="zTreeInfo-right">
-						<ul>
-							<li><span>zTree v3.0 将核心代码按照功能进行了分割，不需要的代码可以不用加载</span></li>
-							<li><span>采用了 延迟加载 技术，上万节点轻松加载，即使在 IE6 下也能基本做到秒杀</span></li>
-							<li><span>兼容 IE、FireFox、Chrome、Opera、Safari 等浏览器</span></li>
-							<li><span>支持 JSON 数据</span></li>
-							<li><span>支持静态 和 Ajax 异步加载节点数据</span></li>
-							<li><span>支持任意更换皮肤 / 自定义图标（依靠css）</span></li>
-							<li><span>支持极其灵活的 checkbox 或 radio 选择功能</span></li>
-							<li><span>提供多种事件响应回调</span></li>
-							<li><span>灵活的编辑（增/删/改/查）功能，可随意拖拽节点，还可以多节点拖拽哟</span></li>
-							<li><span>在一个页面内可同时生成多个 Tree 实例</span></li>
-							<li><span>简单的参数配置实现 灵活多变的功能</span></li>
-						</ul>
+					<div class="col-xs-2">
+						<button class="btn btn-block btn-info" id="searchBtn">搜索</button>
+					</div>
+					<div class="col-xs-2">
+						<button class="btn btn-block btn-success" id="registBtn"
+							type="button">+新增用户</button>
 					</div>
 				</div>
 
+
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="box">
+							<div class="box-body">
+								<table id="user_list" class="table table-bordered table-striped">
+									<thead>
+										<tr>
+											<th name="id">标准ID</th>
+											<th name="userType">用户类型</th>
+											<th name="loginName">登录名称</th>
+											<th name="realName">正式名称</th>
+											<th name="email">邮箱</th>
+											<th name="mobile">手机号</th>
+											<th name="handleMsg">操作</th>
+
+										</tr>
+									</thead>
+									<tbody></tbody>
+									<tfoot></tfoot>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
 
 
 
@@ -85,11 +107,319 @@
 			<div class="clear"></div>
 		</div>
 	</div>
-	
-	
+
+
 	<jsp:include page="./common/foot.jsp" />
 
 	<script type="text/javascript"
 		src="<%=request.getAttribute("basePath")%>/static/js/babygo.js"></script>
+
+
+
+	<script type="text/javascript">
+		$(function() {
+
+			var userTable = $("#user_list")
+					.dataTable(
+							{
+								"deferRender" : true,
+								"processing" : true,
+								"serverSide" : true,
+								"ajax" : {
+									url : base_url
+											+ "/user/pageUsersByType.json",
+									data : function(d) {
+										var obj = {};
+										obj.userType = $('#userAuthType').val();
+										obj.start = d.start;
+										obj.limit = d.length;
+										return obj;
+									}
+								},
+								"searching" : false,
+								"ordering" : false,
+								//"scrollX": false,
+								"columns" : [
+										{
+											"data" : 'id',
+											"bSortable" : false,
+											"visible" : true
+										},
+										{
+											"data" : 'userType',
+											"bSortable" : false,
+											"visible" : true
+										},
+										{
+											"data" : 'loginName',
+											"bSortable" : false,
+											"visible" : true
+										},
+										{
+											"data" : 'realName',
+											"visible" : true
+										},
+										{
+											"data" : 'email',
+											"visible" : true
+										},
+										{
+											"data" : 'mobile',
+											"visible" : true
+										},
+										{
+											"data" : 'handleMsg',
+											"bSortable" : false,
+											"render" : function(data, type, row) {
+												// better support expression or string, not function
+												return function() {
+
+													var temp = '<button class="btn btn-primary btn-xs detail"  type="button"  _id="'+ row.id +'"">详情</button> &nbsp; &nbsp;';
+													return temp;
+												}
+											}
+										} ],
+								"language" : {
+									"sProcessing" : "处理中...",
+									"sLengthMenu" : "每页 _MENU_ 条记录",
+									"sZeroRecords" : "没有匹配结果",
+									"sInfo" : "第 _PAGE_ 页 ( 总共 _TOTAL_ 行 )",
+									"sInfoEmpty" : "无记录",
+									"sInfoFiltered" : "(由 _MAX_ 项结果过滤)",
+									"sInfoPostFix" : "",
+									"sSearch" : "搜索:",
+									"sUrl" : "",
+									"sEmptyTable" : "表中数据为空",
+									"sLoadingRecords" : "载入中...",
+									"sInfoThousands" : ",",
+									"oPaginate" : {
+										"sFirst" : "首页",
+										"sPrevious" : "上页",
+										"sNext" : "下页",
+										"sLast" : "末页"
+									},
+									"oAria" : {
+										"sSortAscending" : ": 以升序排列此列",
+										"sSortDescending" : ": 以降序排列此列"
+									}
+								}
+							});
+
+			$('#user_list').on('click', '.detail', function() {
+				var _id = $(this).attr('_id');
+				window.open(base_url + '/user/detail?id=' + _id);
+				return;
+
+			});
+			// 搜索按钮
+			$('#searchBtn').on('click', function() {
+				userTable.fnDraw();
+			});
+
+			// 注册按钮
+			$('#registBtn').on('click', function() {
+				$('#registModal').modal({
+					backdrop : false,
+					keyboard : false
+				}).modal('show');
+			});
+
+			var addModalValidate = $("#registModal .form")
+					.validate(
+							{
+								errorElement : 'span',
+								errorClass : 'help-block',
+								focusInvalid : true,
+								rules : {
+									loginName : {
+										required : true,
+										rangelength : [ 4, 16 ]
+									},
+									password : {
+										required : true,
+										rangelength : [ 6, 12 ]
+									},
+									password2 : {
+										required : true,
+										//					digits:true,
+										rangelength : [ 6, 12 ],
+										equalTo : "#registModal [name='password']"
+									}
+								},
+								messages : {
+									loginName : {
+										required : "请输入“登录名称”",
+										rangelength : "名称长度4~16位",
+									},
+									password : {
+										required : "请输入“密码”",
+										rangelength : "长度限制为6~12"
+									},
+									password2 : {
+										required : "请再次输入“密码”",
+										//					digits: "请输入整数",
+										rangelength : "长度限制为6~12",
+										equalTo : "请输入相同的密码"
+									}
+								},
+								highlight : function(element) {
+									$(element).closest('.form-group').addClass(
+											'has-error');
+								},
+								success : function(label) {
+									label.closest('.form-group').removeClass(
+											'has-error');
+									label.remove();
+								},
+								errorPlacement : function(error, element) {
+									element.parent('div').append(error);
+								},
+
+								submitHandler : function(form) {
+									$
+											.post(
+													base_url
+															+ "/user/regist.json",
+													$("#registModal .form")
+															.serialize(),
+													function(result, status) {
+
+														if (result.exception) {
+															ComAlert
+																	.show(
+																			2,
+																			"报错啦！"
+																					+ result.exception);
+														} else {
+															var loginName = $(
+																	"#registModal [name='loginName']")
+																	.val();
+															setTimeout(
+																	function() {
+																		ComAlert
+																				.show(
+																						1,
+																						"保存成功",
+																						function() {
+																							$(
+																									"#loginForm [name='user']")
+																									.val(
+																											loginName);
+																						});
+																	}, 315);
+															$('#registModal')
+																	.modal(
+																			'hide');
+														}
+
+													});
+								}
+							});
+			$("#registModal").on('hide.bs.modal', function() {
+				$("#registModal .form")[0].reset();
+				addModalValidate.resetForm();
+				$("#registModal .form .form-group").removeClass("has-error");
+			});
+
+			// jquery.validate 自定义校验 “英文字母开头，只含有英文字母、数字和下划线”
+			jQuery.validator.addMethod("equalTo", function(value, element,
+					param) {
+
+				var pwd = $(param).val();
+
+				return pwd == value;
+			}, "两次密码不一致");
+
+		});
+	</script>
+
+	<!-- 新增.模态框 -->
+	<div class="modal fade" id="registModal" tabindex="-1" role="dialog"
+		aria-hidden="true">
+		<div class="modal-dialog ">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">注册新账户</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal form" role="form">
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">登录名<font
+								color="red">*</font></label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" name="loginName"
+									placeholder="请输入“登录名称”" maxlength="50">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">密码<font
+								color="red">*</font></label>
+							<div class="col-sm-8">
+								<input type="password" class="form-control" name="password"
+									maxlength="200">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">确认密码<font
+								color="red">*</font></label>
+							<div class="col-sm-8">
+								<input type="password" class="form-control" name="password2"
+									maxlength="200">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="firstname" class="col-sm-2 control-label">用户类型<font
+								color="red">*</font></label>
+							<div class="col-sm-8">
+								<select class="form-control" name="userType">
+									<option value=""></option>
+									<option value="admin">管理员</option>
+									<option value="normal">普通用户</option>
+									<option value="guest">游客</option>
+								</select>
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">邮箱</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" name="email"
+									placeholder="请输入邮箱(仅作交流)" maxlength="200">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">电话号码</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" name="mobile"
+									placeholder="请输入手机号码(仅作交流)" maxlength="200">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">正式名称</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" name="realName"
+									placeholder="请输入公司名称(仅作交流)" maxlength="200">
+							</div>
+						</div>
+
+						<hr>
+						<div class="form-group">
+							<div class="col-sm-offset-3 col-sm-6">
+								<button type="submit" class="btn btn-primary">保存</button>
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">取消</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
 </body>
 </html>

@@ -1,10 +1,14 @@
 package com.wjs.common.web;
 
+import java.util.ArrayList;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+
+import com.wjs.common.dao.PageDataList;
 
 
 /**
@@ -145,6 +149,27 @@ public class BaseController {
 			LOGGER.debug(logString);
 		}
 		return result;
+	}
+	/**
+	 * parse PageDataList to JqueryDataTable
+	 * @param page
+	 * @return
+	 */
+	public <T> JqueryDataTable<T>  dataTable(PageDataList<T> page) {
+		JqueryDataTable<T> t = new JqueryDataTable<>();
+		if(null != page){
+
+			t.setData(page.getRows());
+			t.setRecordsFiltered(page.getTotal());
+			t.setRecordsTotal(page.getTotal());
+		}else{
+		
+	
+			t.setData(new ArrayList<T>());
+			t.setRecordsFiltered(0);
+			t.setRecordsTotal(0);
+		}
+		return t;
 	}
 
 

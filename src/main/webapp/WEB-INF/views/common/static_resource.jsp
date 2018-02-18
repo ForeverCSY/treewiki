@@ -1,24 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-
-<link rel="stylesheet"
-	href="<%=request.getAttribute("basePath")%>/static/adminlte/bootstrap/css/bootstrap.min.css">
+<!-- jquery -->
 <script
 	src="<%=request.getAttribute("basePath")%>/static/adminlte/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<script src="<%=request.getAttribute("basePath")%>/static/plugins/jquery/jquery.validate.min.js"></script>
 
-
+<!-- bootstrap -->
+<link rel="stylesheet"
+	href="<%=request.getAttribute("basePath")%>/static/adminlte/bootstrap/css/bootstrap.min.css">
 <script type="text/javascript"
 	src="<%=request.getAttribute("basePath")%>/static/adminlte/bootstrap/js/bootstrap.min.js"></script>
+
+
+
+<!-- daterangepicker -->
+<script src="<%=request.getAttribute("basePath")%>/static/adminlte/plugins/daterangepicker/moment.min.js"></script>
+<script src="<%=request.getAttribute("basePath")%>/static/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<%=request.getAttribute("basePath")%>/static/adminlte/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<link rel="stylesheet" href="${request.contextPath}/static/adminlte/plugins/daterangepicker/daterangepicker-bs3.css">
+
+
+
+<!-- my- common -->
 <script type="text/javascript"
 	src="<%=request.getAttribute("basePath")%>/static/js/common.alert.1.js"></script>
-	
-	
 <script type="text/javascript"
 	src="<%=request.getAttribute("basePath")%>/static/js/common.1.js"></script>
-
-
-
 <script>
 
 

@@ -2,8 +2,10 @@ package com.wjs.treewiki.service.user;
 
 import java.util.List;
 
+import com.wjs.common.dao.PageDataList;
 import com.wjs.treewiki.model.auth.User;
 import com.wjs.treewiki.vo.auth.LogonInfo;
+import com.wjs.treewiki.vo.user.UserPageVo;
 
 public interface UserService {
 
@@ -36,5 +38,16 @@ public interface UserService {
 	 * @return
 	 */
 	List<User> listUsersByType(String userType);
+
+	/**
+	 * 根据用户类型，分页查询用户
+	 * @param page
+	 * @return
+	 */
+	PageDataList<User> pageUsersByType(UserPageVo page);
+
+	void addUser(User user);
+
+	void modifyUserById(User user);
 
 }
