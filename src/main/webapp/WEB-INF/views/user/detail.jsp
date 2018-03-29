@@ -7,7 +7,7 @@
 <html>
 <head>
 
-<title>首页随便看看</title>
+<title>用户详情</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="description" content="treewiki_content">
@@ -42,18 +42,7 @@
 	%>
 	<div id="content_wrap" class="content_wrap">
 		<div id="content" class="content">
-			<div class="nav_section">
-				<ul>
-					<li class="first">你也许应该看看:</li>
-					<li><a href="#" class="zTreeInfoBtn selected"
-						onclick="return false;">简述</a></li>
-					<li><a href="#" class="licenseBtn" onclick="return false;">授权许可</a></li>
-					<li><a href="#" class="contactBtn" onclick="return false;">联系方式</a></li>
-					<li><a href="#" class="linksBtn" onclick="return false;">友情链接</a></li>
-				</ul>
-			</div>
 
-			<div class="siteTag tag_license" alt=""></div>
 
 			<div id="contentBox" class="contentBox round clearfix">
 
@@ -256,5 +245,8 @@
 
 
 
+<script type="text/javascript">
+	$('#js_selected_user').addClass('selected')
+</script>
 </body>
 </html>

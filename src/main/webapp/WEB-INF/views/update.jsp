@@ -4,7 +4,7 @@
 <html>
 <head>
 
-<title>wiki编辑</title>
+<title>文档编辑</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <script type="text/javascript">
@@ -49,9 +49,7 @@ var basePath = "<%=request.getAttribute("basePath")%>";
 <script type="text/javascript" charset="utf-8"
 	src="<%=request.getAttribute("basePath")%>/static/ueditor/ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8"
-	src="<%=request.getAttribute("basePath")%>/static/ueditor/ueditor.all.min.js">
-	
-</script>
+	src="<%=request.getAttribute("basePath")%>/static/ueditor/ueditor.all.min.js"></script>
 <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
 <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
 <script type="text/javascript" charset="utf-8"
@@ -671,19 +669,19 @@ div#rMenu ul li {
 
 			<div id="contentBox" class="contentBox round clearfix">
 				<div id="demoContent" class="demoContent">
-					<div id="demo_menu" class="demo_menu left ">
+					<div id="demo_menu" class="demo_menu left">
 						<ul id="menuTree" class="ztree">
 						</ul>
 					</div>
 					<div id="demo_viewer" class="demo_viewer right">
-						<div class="zTreeDemoBackground left">
+						<div class="zTreeDemoBackground left" style="padding: 20px 0;">
 
 							<ul class="info">
 								<input id="lockby" type="hidden"/>
-								<li><a id="lockBtn" href="#"
-									onclick="toLock(); return false;">锁定</a> 
-									<a id="saveBtn" href="#"
-									onclick="save(); return false;">保存</a></li>
+								<li>
+									<a id="lockBtn" class="btn btn-danger" href="#" onclick="toLock(); return false;">加锁</a> 
+									<a id="saveBtn" class="btn btn-primary" href="#" onclick="save(); return false;">保存</a>
+								</li>
 								<li><label id="lockLabel" style="color:red;">red：已经被xxx加锁</label></li>
 							</ul>
 
@@ -725,5 +723,8 @@ div#rMenu ul li {
 		src="<%=request.getAttribute("basePath")%>/static/js/babygo.js"></script>
 
 
+<script type="text/javascript">
+	$('#js_selected_update').addClass('selected')
+</script>
 </body>
 </html>

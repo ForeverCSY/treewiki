@@ -4,7 +4,7 @@
 <html>
 <head>
 
-<title>wiki仔细看</title>
+<title>文档查看</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="description" content="treewiki_content">
@@ -25,17 +25,24 @@
 <style type="text/css">
 .ztree li a.level0 {
 	width: 200px;
-	height: 20px;
+	height: 44px;
 	text-align: center;
 	display: block;
-	background-color: #0B61A4;
+	background-color: #6a7c8a;
 	border: 1px silver solid;
 }
 
-.ztree li a.level0.cur {
-	background-color: #66A3D2;
+.ztree li a.level0.cur, .nav>li>a:focus, .nav>li>a:hover {
+	background-color: #0B61A4!important;
 }
-
+.ztree li ul {
+    margin: 0;
+    padding: 0 18px;
+}
+.ztree>li>ul {
+    margin: 0;
+    padding: 15px 0 15px 18px;
+}
 .ztree li a.level0 span {
 	display: block;
 	color: white;
@@ -78,7 +85,6 @@
 
 	<jsp:include page="./common/head.jsp" />
 
-
 	<div id="content_wrap" class="content_wrap">
 		<div id="content" class="content">
 			<div class="nav_section">
@@ -86,15 +92,14 @@
 				</ul>
 			</div>
 
-			<div class="siteTag tag_donate" alt=""></div>
 			<div id="contentBox" class="contentBox round clearfix">
 				<div id="demoContent" class="demoContent">
 					<div id="demo_menu" class="demo_menu left ">
-						<ul id="menuTree" class="ztree">
+						<ul id="menuTree" class="ztree nav nav-pills nav-stacked nav-pills-stacked-example">
 						</ul>
 					</div>
 					<div id="demo_viewer" class="demo_viewer right">
-						<h1>默认文案</h1>
+						<h1></h1>
 					</div>
 				</div>
 
@@ -260,5 +265,8 @@
 
 	<script type="text/javascript"
 		src="<%=request.getAttribute("basePath")%>/static/js/babygo.js"></script>
+<script type="text/javascript">
+	$('#js_selected_index').addClass('selected')
+</script>
 </body>
 </html>

@@ -4,7 +4,7 @@
 <html>
 <head>
 
-<title>首页随便看看</title>
+<title>首页</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="description" content="treewiki_content">
@@ -27,7 +27,6 @@
 	src="<%=request.getAttribute("basePath")%>/static/js/babyFirst.js"></script>
 <script type="text/javascript"
 	src="<%=request.getAttribute("basePath")%>/static/js/jquery.ztree.core.js"></script>
-
 </head>
 <body>
 
@@ -35,32 +34,20 @@
 
 	<div id="content_wrap" class="content_wrap">
 		<div id="content" class="content">
-			<div class="nav_section">
-				<ul>
-					<li class="first">你也许应该看看:</li>
-					<li><a href="#" class="zTreeInfoBtn selected"
-						onclick="return false;">简述</a></li>
-					<li><a href="#" class="licenseBtn" onclick="return false;">授权许可</a></li>
-					<li><a href="#" class="contactBtn" onclick="return false;">联系方式</a></li>
-					<li><a href="#" class="linksBtn" onclick="return false;">友情链接</a></li>
-				</ul>
-			</div>
 
-			<div class="siteTag tag_license" alt=""></div>
 
 			<div id="contentBox" class="contentBox round clearfix"
 				style="height: 569px; margin-bottom: 0px;">
 				<div id="zTreeInfo" class="zTreeInfo"
 					style="top: 0px; left: 0px; display: block;">
 					<div class="title">
-						<h1>zTree 简介</h1>
-						<h4>&nbsp;&nbsp;&nbsp;&nbsp;zTree 是一个依靠 jQuery 实现的多功能
-							“树插件”。优异的性能、灵活的配置、多种功能的组合是 zTree 最大优点。</h4>
-						<h4>&nbsp;&nbsp;&nbsp;&nbsp;zTree 是开源免费的软件（MIT 许可证）。如果您对
-							zTree 感兴趣或者愿意资助 zTree 继续发展下去，可以进行捐助。</h4>
+						<h1>网金社treewiki 简介</h1>
+						<br>
+						<h4>&nbsp;&nbsp;&nbsp;&nbsp;treewiki 拥有庞大的网金社平台知识储备，提供详细的字段解释，各项配置教程。</h4>
+						<h4>&nbsp;&nbsp;&nbsp;&nbsp;加入网金社，圆你的金融梦!</h4>
 					</div>
 
-					<div id="zTreeInfo-left" class="zTreeInfo-left"></div>
+					<!-- <div id="zTreeInfo-left" class="zTreeInfo-left"></div>
 					<div id="zTreeInfo-right" class="zTreeInfo-right">
 						<ul>
 							<li><span>zTree v3.0 将核心代码按照功能进行了分割，不需要的代码可以不用加载</span></li>
@@ -75,21 +62,19 @@
 							<li><span>在一个页面内可同时生成多个 Tree 实例</span></li>
 							<li><span>简单的参数配置实现 灵活多变的功能</span></li>
 						</ul>
-					</div>
+					</div> -->
 				</div>
-
-
-
-
 			</div>
 			<div class="clear"></div>
 		</div>
 	</div>
 	
-	
 	<jsp:include page="./common/foot.jsp" />
 
 	<script type="text/javascript"
 		src="<%=request.getAttribute("basePath")%>/static/js/babygo.js"></script>
+<script type="text/javascript">
+	$('#js_selected_home').addClass('selected')
+</script>
 </body>
 </html>

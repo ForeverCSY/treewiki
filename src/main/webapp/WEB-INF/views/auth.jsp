@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>授权</title>
+<title>权限管理</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="description" content="treewiki_content">
@@ -55,7 +55,6 @@
 				</ul>
 			</div>
 
-			<div class="siteTag tag_donate" alt=""></div>
 			<center>
 				<div id="contentBox" style="width: 800px"
 					class="contentBox round clearfix">
@@ -76,7 +75,7 @@
 
 						</div>
 						<div id="btn" class="left">
-							<input type="button" value=" 保 存  " onclick="auth();"/>
+							<input type="button" class="btn btn-primary" value=" 保 存  " onclick="auth();"/>
 						</div>
 					</div>
 					<div class="clear"></div>
@@ -412,5 +411,8 @@
 		<ul id="userTree" class="ztree" style="margin-top: 0; width: 160px;"></ul>
 	</div>
 
+<script type="text/javascript">
+	$('#js_selected_auth').addClass('selected')
+</script>
 </body>
 </html>
